@@ -1,0 +1,14 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: net6.0
+nuget FSharp.Core
+nuget FSharp.Data
+nuget Microsoft.PowerShell.SDK
+
+
+group PSGallery
+    source https://www.powershellgallery.com/api/v2
+    storage: packages
+
+    nuget PSReadLine

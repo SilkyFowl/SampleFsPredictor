@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>SampleFsPredictor</name></assembly>
+<members>
+<member name="P:SampleFsPredictor.SampleFsPredictor.SampleFsPredictor.Name">
+<summary>
+ サブシステム実装の名前を取得する。
+</summary>
+</member>
+<member name="P:SampleFsPredictor.SampleFsPredictor.SampleFsPredictor.Id">
+<summary>
+ サブシステム実装の一意な識別子を取得する。
+</summary>
+</member>
+<member name="P:SampleFsPredictor.SampleFsPredictor.SampleFsPredictor.Description">
+<summary>
+ サブシステム説明を取得する。
+</summary>
+</member>
+</members>
+</doc>

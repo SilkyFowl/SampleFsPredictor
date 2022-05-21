@@ -1,0 +1,3 @@
+Microsoft.PowerShell.SDK copy_local: false
+FSharp.Core copy_content_to_output_dir: preserve_newest
+FSharp.Data
