@@ -1,2 +1,7 @@
-Remove-Item $PSScriptRoot/dist -Recurse -Force
+$dist = "$PSScriptRoot/dist"
+
+if(Test-Path $dist){
+    Remove-Item $dist -Recurse -Force
+}
+
 dotnet publish --output dist
