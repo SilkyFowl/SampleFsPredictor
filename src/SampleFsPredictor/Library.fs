@@ -91,6 +91,14 @@ module NugetAutoComplate =
                 |> client.GetFromJsonAsync<Response>
         }
 
+module ResizeArray =
+    let inline mapOfArray (source: 't []) ([<InlineIfLambda>] initializer) =
+        let resizeArray = ResizeArray source.Length
+
+        for item in source do
+            initializer item |> resizeArray.Add
+
+        resizeArray
 
 module SampleFsPredictor =
     open System
@@ -107,11 +115,11 @@ module SampleFsPredictor =
 
         let getAutocompletes q =
             task {
-                let! r = NugetAutoComplate.getAsync 10 false q
+                let take = 10
+                let! responce = NugetAutoComplate.getAsync take false q
 
                 return
-                    ResizeArray [| for data in r.data do
-                                       PredictiveSuggestion data |]
+                    ResizeArray.mapOfArray responce.data PredictiveSuggestion
                     |> SuggestionPackage
             }
 
@@ -125,10 +133,15 @@ module SampleFsPredictor =
         let reloadPrediction () =
             task {
                 let prev = PSConsoleReadLine.GetOptions().PredictionSource
-                setPredictionSource PredictionSource.None
-                use _ = IDisposable.create (fun _ -> setPredictionSource prev)
-                PSConsoleReadLine.Insert " "
-                use _ = IDisposable.create PSConsoleReadLine.Undo
+
+                use _ =
+                    setPredictionSource PredictionSource.None
+                    IDisposable.create (fun _ -> setPredictionSource prev)
+
+                use _ =
+                    PSConsoleReadLine.Insert " "
+                    IDisposable.create PSConsoleReadLine.Undo
+
                 setPredictionSource prev
             }
 
@@ -160,7 +173,6 @@ module SampleFsPredictor =
 
 
             member _.CanAcceptFeedback(client, feedback) =
-
 
                 match feedback with
                 | PredictorFeedbackKind.SuggestionDisplayed
